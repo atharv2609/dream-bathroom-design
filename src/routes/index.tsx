@@ -1,24 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ArrowDown, ArrowRight, Check, MoveUpRight, Sparkles } from "lucide-react";
+import heroImage from "@/assets/bathroom-hero.jpg";
+import zenImage from "@/assets/style-zen.jpg";
+import classicImage from "@/assets/style-classic.jpg";
+import minimalImage from "@/assets/style-minimal.jpg";
+import { Button } from "@/components/ui/button";
+import { demoScenarios } from "@/data/scenarios";
+import { useDesign } from "@/state/design-context";
+export const Route=createFileRoute("/")({head:()=>({meta:[{title:"KOHLER AI — The Dream Bathroom Studio"},{name:"description",content:"Imagine and plan a personalized bathroom with spatially validated demo products, budget-aware bundles and an interactive design studio."},{property:"og:title",content:"KOHLER AI — The Dream Bathroom Studio"},{property:"og:description",content:"A premium, intelligent journey from bathroom inspiration to a practical design proposal."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:Home});
+const inspirations=[{name:"Japanese Zen",note:"Quiet rituals · natural materiality",image:zenImage,scenario:"zen"},{name:"Classic Luxury",note:"Tailored detail · timeless proportion",image:classicImage,scenario:"classic"},{name:"Minimalist Modern",note:"Clarity · thoughtful efficiency",image:minimalImage,scenario:"small"}];
+function Home(){const{loadRequirements}=useDesign();const navigate=useNavigate();const start=(id:string)=>{const s=demoScenarios.find(x=>x.id===id);if(s)loadRequirements(structuredClone(s.requirements));void navigate({to:"/studio"})};return <main className="home"><section className="home-hero"><img src={heroImage} width={1920} height={1080} alt="Sunlit stone bathroom with sculptural bath and timber vanity"/><div className="hero-shade"/><div className="hero-content"><span className="hero-kicker"><Sparkles/> The Dream Bathroom Studio</span><h1>Your dream bathroom,<br/><em>thoughtfully designed.</em></h1><p>Discover a space that reflects your style, fits your lifestyle, and works within your budget—with intelligent design powered by KOHLER.</p><div className="hero-actions"><Button size="lg" asChild><Link to="/studio">Design my bathroom <ArrowRight/></Link></Button><Button variant="heroOutline" size="lg" onClick={()=>document.getElementById("inspirations")?.scrollIntoView({behavior:"smooth"})}>Explore inspirations <ArrowDown/></Button></div></div><div className="hero-index"><span>01</span><p>Dream<br/>Discover<br/>Design</p></div></section><section className="manifesto"><span className="eyebrow">A room that begins with you</span><div><h2>From inspiration<br/>to intelligent detail.</h2><p>We bring together editorial inspiration, practical space planning and transparent product guidance—so every choice feels beautiful and considered.</p></div><div className="journey-line">{["Dream","Discover","Design","Refine","Visualize","Finalize"].map((x,i)=><span key={x}><b>{String(i+1).padStart(2,"0")}</b>{x}</span>)}</div></section><section className="inspiration-section" id="inspirations"><div className="section-intro"><span className="eyebrow">Find your atmosphere</span><h2>Rooms to dream in.</h2><p>Choose an aesthetic to begin with a complete, editable design.</p></div><div className="inspiration-grid">{inspirations.map((item,i)=><button key={item.name} className={`inspiration-card card-${i}`} onClick={()=>start(item.scenario)}><img src={item.image} width={1024} height={1280} loading="lazy" alt={`${item.name} bathroom inspiration`}/><span className="image-wash"/><div><small>0{i+1}</small><h3>{item.name}</h3><p>{item.note}</p></div><MoveUpRight/></button>)}</div></section><section className="scenario-band"><div className="section-intro"><span className="eyebrow">Start with a lived-in brief</span><h2>Five ways to begin.</h2></div><div className="scenario-list">{demoScenarios.map(s=><button key={s.id} onClick={()=>start(s.id)}><span><Check/> Ready to explore</span><h3>{s.name}</h3><p>{s.note}</p><ArrowRight/></button>)}</div></section><section className="trust-band"><span>Synthetic demo catalog</span><p>Every product, price and performance detail in this prototype is clearly identified as illustrative. Measurements and feasibility are planning guidance—not construction or code approval.</p><Button asChild variant="outline"><Link to="/studio">Enter the studio <ArrowRight/></Link></Button></section></main>}
