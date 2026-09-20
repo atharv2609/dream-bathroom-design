@@ -1,0 +1,5 @@
+import { Link } from "@tanstack/react-router";
+import { Menu, Sparkles, X } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+export function SiteHeader(){const[open,setOpen]=useState(false);const links=[{to:"/" as const,label:"Dream Studio"},{to:"/studio" as const,label:"My Design"},{to:"/proposal" as const,label:"Proposal"}];return <header className="site-header"><Link to="/" className="brand" aria-label="KOHLER AI home"><span className="brand-mark">K</span><span>KOHLER <em>AI</em></span></Link><nav className="desktop-nav" aria-label="Main navigation">{links.map(l=><Link key={l.to} to={l.to} activeProps={{className:"active"}}>{l.label}</Link>)}</nav><div className="header-actions"><span className="demo-chip"><Sparkles/> Demo catalog</span><Button variant="ghost" size="icon" className="mobile-menu" aria-label={open?"Close menu":"Open menu"} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button></div>{open&&<nav className="mobile-nav">{links.map(l=><Link key={l.to} to={l.to} onClick={()=>setOpen(false)}>{l.label}</Link>)}</nav>}</header>}
