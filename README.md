@@ -1,4 +1,4 @@
-# KOHLER AI — Dream Bathroom Studio
+# Dream Bathroom Studio
 
 ### Imagine Your Dream Bathroom. Now Bring It to Life.
 
@@ -22,7 +22,7 @@ constraints, and coordinate individual fixtures.
 This can make it difficult to visualize how different products will
 work together within a real bathroom.
 
-KOHLER AI — Dream Bathroom Studio addresses this challenge by bringing
+ — Dream Bathroom Studio addresses this challenge by bringing
 bathroom planning and product discovery into a single interactive
 experience.
 
