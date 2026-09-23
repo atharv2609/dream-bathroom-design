@@ -36,6 +36,8 @@ compatibility, and design preferences.
 The goal is to make bathroom design more accessible, explainable,
 and convenient while preserving practical design constraints.
 
+ https://bath-design-whisperer.lovable.app/
+
 ---
 
 ## Project Objectives
